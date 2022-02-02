@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using YoloWebApi.Contracts;
 using YoloWebApi.Processor;
@@ -10,9 +11,9 @@ namespace YoloWebApi.Controllers
     public class AssetMarketController : ControllerBase
     {
         [HttpGet]
-        public IEnumerable<Market> Get()
+        public async Task<IEnumerable<Market>> Get()
         {
-            var result = AssetMarketProcessor.GetPriceForTopHundred();
+            var result = await AssetMarketProcessor.GetPriceForTopHundred().ConfigureAwait(false);
             return result;
         }
     }

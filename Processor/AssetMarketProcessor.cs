@@ -14,7 +14,7 @@ namespace YoloWebApi.Processor
         private const string WebApiUrl = @"https://api.blocktap.io/graphql";
         private static readonly GraphQLHttpClient Client = new GraphQLHttpClient(WebApiUrl, new NewtonsoftJsonSerializer());
 
-        public static IEnumerable<Market> GetPriceForTopHundred()
+        public static async Task<IEnumerable<Market>> GetPriceForTopHundred()
         {
             var topHundredAssets = GetTopHundredAssets();
             var itemsCount = topHundredAssets.Length;
@@ -29,7 +29,7 @@ namespace YoloWebApi.Processor
             var resultArray = new List<Market>[batchesCount];
 
             //splitting assets into batches
-            Parallel.For(0, batchesCount, index =>
+            await Task.Run(() => Parallel.For(0, batchesCount, index =>
             {
                 //defining a subset of documents according to limit
                 var length = index + 1 == batchesCount && lastBatchLimit > 0 ? lastBatchLimit : normalBatchLimit;
@@ -38,7 +38,7 @@ namespace YoloWebApi.Processor
                 var markets = GetBatchMarkets(subsetArray);
                 resultArray[index] = new List<Market>();
                 resultArray[index].AddRange(markets);
-            });
+            })).ConfigureAwait(false);
 
             var result = new List<Market>();
             foreach (var sub in resultArray)
@@ -66,7 +66,7 @@ namespace YoloWebApi.Processor
             };
 
             var assetsResponse = Client.SendQueryAsync<DataAssets>(msg).Result;
-            return assetsResponse.Data.Assets.OrderByDescending(x => x.MarketCap.GetValueOrDefault()).Take(100).ToArray();
+            return assetsResponse.Data.Assets.Take(100).ToArray();
         }
 
         private static IEnumerable<Market> GetBatchMarkets(Asset[] assets)
