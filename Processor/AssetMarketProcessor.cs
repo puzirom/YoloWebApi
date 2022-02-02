@@ -20,7 +20,7 @@ namespace YoloWebApi.Processor
             var itemsCount = topHundredAssets.Length;
             if (itemsCount < 1)
             {
-                return null;
+                return Array.Empty<Market>();
             }
 
             const int normalBatchLimit = 20;
@@ -66,7 +66,7 @@ namespace YoloWebApi.Processor
             };
 
             var assetsResponse = Client.SendQueryAsync<DataAssets>(msg).Result;
-            return assetsResponse.Data.Assets.Take(100).ToArray();
+            return assetsResponse.Data.Assets.OrderByDescending(x => x.MarketCap.GetValueOrDefault()).Take(100).ToArray();
         }
 
         private static IEnumerable<Market> GetBatchMarkets(Asset[] assets)

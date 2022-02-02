@@ -14,16 +14,12 @@ namespace YoloWebApi.Controllers
             "eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia " +
             "deserunt mollit anim id est laborum.";
 
-        [HttpGet( "first")]
-        public string Get()
+        [HttpGet]
+        public string Get(string text)
         {
-            return StringReverseProcessor.StringReverseFirst(Text);
-        }
-
-        [HttpGet("second")]
-        public string GetSecond()
-        {
-            return StringReverseProcessor.StringReverseFirst(Text);
+            return string.IsNullOrEmpty(text)
+            ? StringReverseProcessor.Reverse(Text)
+            : StringReverseProcessor.Reverse(text);
         }
     }
 }

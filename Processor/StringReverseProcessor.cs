@@ -1,10 +1,8 @@
-﻿using System.Linq;
-
-namespace YoloWebApi.Processor
+﻿namespace YoloWebApi.Processor
 {
     internal static class StringReverseProcessor
     {
-        public static string StringReverseFirst(string s)
+        public static string Reverse(string s)
         {
             var charArray = s.ToCharArray();
             var i = -1;
@@ -18,9 +16,9 @@ namespace YoloWebApi.Processor
             return new string(charArray);
         }
 
-        public static string StringReverseSecond(string s)
-        {
-            return new string(s.Reverse().ToArray());
-        }
+        //public static string Reverse(string s)
+        //{
+        //    return new string(s.Reverse().ToArray());
+        //}
     }
 }
