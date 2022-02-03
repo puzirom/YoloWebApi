@@ -48,7 +48,7 @@ namespace YoloWebApi.Processor
         {
             const string query = @"
                 query {
-                  assets(sort: [{marketCapRank: ASC}]) {
+                  assets(sort: [{marketCapRank: ASC}], page: {skip: 0, limit: 100}) {
                     assetName
                     assetSymbol
                     marketCap
@@ -61,7 +61,7 @@ namespace YoloWebApi.Processor
             };
 
             var assetsResponse = Client.SendQueryAsync<DataAssets>(msg).Result;
-            return assetsResponse.Data.Assets.Take(100).ToArray();
+            return assetsResponse.Data.Assets;
         }
 
         private static IEnumerable<Market> GetBatchMarkets(Asset[] assets)
