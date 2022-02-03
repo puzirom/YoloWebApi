@@ -1,5 +1,5 @@
 # YoloWebApi
-Some examples how to work with .NET CORE Web Api
+Some examples how to work with .NET CORE Web Api in a Docker container
 
 Howto build and run soltion: 
 1. Clone repo to some local directory. For example C:\Test\ then work folder be C:\Test\YoloWebApi.
