@@ -16,7 +16,7 @@ namespace YoloWebApi.Processor
 
         public static async Task<IEnumerable<Market>> GetPriceForTopHundred()
         {
-            var topHundredAssets = GetTopHundredAssets();
+            var topHundredAssets = await Task.Run(GetTopHundredAssets);
             var itemsCount = topHundredAssets.Length;
             if (itemsCount < 1)
             {
@@ -38,15 +38,10 @@ namespace YoloWebApi.Processor
                 var markets = GetBatchMarkets(subsetArray);
                 resultArray[index] = new List<Market>();
                 resultArray[index].AddRange(markets);
-            })).ConfigureAwait(false);
+            }));
 
-            var result = new List<Market>();
-            foreach (var sub in resultArray)
-            {
-                result.AddRange(sub);
-            }
-
-            return result;
+            //join batches results into one enumerable instance
+            return resultArray.SelectMany(x => x);
         }
 
         private static Asset[] GetTopHundredAssets()

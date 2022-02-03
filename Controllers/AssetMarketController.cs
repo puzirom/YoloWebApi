@@ -13,7 +13,7 @@ namespace YoloWebApi.Controllers
         [HttpGet]
         public async Task<IEnumerable<Market>> Get()
         {
-            var result = await AssetMarketProcessor.GetPriceForTopHundred().ConfigureAwait(false);
+            var result = await AssetMarketProcessor.GetPriceForTopHundred();
             return result;
         }
     }

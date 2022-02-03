@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using YoloWebApi.Processor;
 
 namespace YoloWebApi.Controllers
@@ -8,7 +9,7 @@ namespace YoloWebApi.Controllers
     public class HashComputeController : ControllerBase
     {
         [HttpGet]
-        public string Get(string filename)
+        public async Task<string> Get(string filename)
         {
             if (string.IsNullOrEmpty(filename))
             {
@@ -17,10 +18,10 @@ namespace YoloWebApi.Controllers
 
             if (!System.IO.File.Exists(filename))
             {
-                return "File is not exist";
+                return "File does not exist";
             }
 
-            var result = HashComputeProcessor.GetHashSha256(filename);
+            var result = await HashComputeProcessor.GetHashSha256(filename);
             return result;
         }
     }

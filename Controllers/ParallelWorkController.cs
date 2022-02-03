@@ -14,7 +14,7 @@ namespace YoloWebApi.Controllers
         {
             var stopWatch = new Stopwatch();
             stopWatch.Start();
-            await ParallelWorkProcessor.MethodA().ConfigureAwait(false);
+            await ParallelWorkProcessor.MethodA();
             stopWatch.Stop();
             var ts = stopWatch.Elapsed;
             var elapsedTime = $"Result time: {ts.Hours:00}:{ts.Minutes:00}:{ts.Seconds:00}.{ts.Milliseconds / 10:00}";

@@ -22,7 +22,7 @@ Some method requires input string values.
 
 4. AssetMarket. Returns list of Assets and their market price for TOP 100 assets. 
 
-In case if URL AssetMarket returns error like "SocketException: No such host is known" 
+In case if AssetMarket returns error like "SocketException: No such host is known" 
 then add into docker daemon.json (C:\ProgramData\Docker\config) following setting:
 {
     "dns": ["8.8.8.8"]

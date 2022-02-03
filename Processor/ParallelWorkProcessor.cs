@@ -8,7 +8,7 @@ namespace YoloWebApi.Processor
         public static async Task MethodA()
         {
             var valueArray = Enumerable.Range(1, 1000).ToArray();
-            await Task.Run(() => Parallel.ForEach(valueArray, item => { MethodB(item); })).ConfigureAwait(false);
+            await Task.Run(() => Parallel.ForEach(valueArray, item => { MethodB(item); }));
         }
 
         private static bool MethodB(int value)
