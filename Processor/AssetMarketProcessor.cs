@@ -86,7 +86,7 @@ namespace YoloWebApi.Processor
         //    return assetsResponse.Data.Assets.Take(100).ToArray();
         //}
 
-        private static IEnumerable<Market> GetBatchMarkets(Asset[] assets)
+        private static IEnumerable<Market> GetBatchMarkets(IEnumerable<Asset> assets)
         {
             var assetSymbols = assets.Select(a => $"\"{a.AssetSymbol}\"");
             var sb = string.Join(",", assetSymbols);
