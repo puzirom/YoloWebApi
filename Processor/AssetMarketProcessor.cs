@@ -46,6 +46,7 @@ namespace YoloWebApi.Processor
 
         private static Asset[] GetTopHundredAssets()
         {
+            //query takes only first 100 items
             const string query = @"
                 query {
                   assets(sort: [{marketCapRank: ASC}], page: {skip: 0, limit: 100}) {
@@ -63,6 +64,27 @@ namespace YoloWebApi.Processor
             var assetsResponse = Client.SendQueryAsync<DataAssets>(msg).Result;
             return assetsResponse.Data.Assets;
         }
+
+        //private static Asset[] GetTopHundredAssets()
+        //{
+        //    //query takes all available items
+        //    const string query = @"
+        //        query {
+        //          assets(sort: [{marketCapRank: ASC}]) {
+        //            assetName
+        //            assetSymbol
+        //            marketCap
+        //          }
+        //        }";
+
+        //    var msg = new GraphQLRequest
+        //    {
+        //        Query = query
+        //    };
+
+        //    var assetsResponse = Client.SendQueryAsync<DataAssets>(msg).Result;
+        //    return assetsResponse.Data.Assets.Take(100).ToArray();
+        //}
 
         private static IEnumerable<Market> GetBatchMarkets(Asset[] assets)
         {
