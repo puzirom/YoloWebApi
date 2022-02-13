@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using YoloWebApi.Contracts;
@@ -14,7 +15,7 @@ namespace YoloWebApi.Controllers
         public async Task<IEnumerable<Market>> Get()
         {
             var result = await AssetMarketProcessor.GetPriceForTopHundred();
-            return result;
+            return result.ToList();
         }
     }
 }
